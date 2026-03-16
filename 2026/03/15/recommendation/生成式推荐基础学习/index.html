@@ -1,13 +1,13 @@
-<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>生成式推荐基础学习 | Deicide77's Blog</title><meta name="author" content="deicide77"><meta name="copyright" content="deicide77"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="第五章 生成式推荐基础前言生成式推荐研究的三种主要路径在初读第五章开头时，我其实产生了一个比较明显的感受：作者试图先给读者建立一张“研究地图”。也就是说，在真正进入具体算法之前，先说明当前生成式推荐研究大致沿着哪些方向发展。 然而，仅仅阅读教程中的这些名词时，我发现自己虽然具备一定的深度学习基础，但仍然很难清晰地解释这些概念之间的关系。因此，在查阅一些相关论文和资料之后，我对这一部分进行了简单的整">
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>生成式推荐基础学习 | Deicide77's Blog</title><meta name="author" content="deicide77"><meta name="copyright" content="deicide77"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="第五章 生成式推荐基础前言 生成式推荐研究的三种主要路径 在初读第五章开头时，我其实产生了一个比较明显的感受：作者试图先给读者建立一张“研究地图”。 也就是说，在真正进入具体算法之前，先说明当前生成式推荐研究大致沿着哪些方向发展。 然而，仅仅阅读教程中的这些名词时，我发现自己虽然具备一定的深度学习基础，但仍然很难清晰地解释这些概念之间的关系。因此，在查阅一些相关论文和资料之后，我对这一部分进行了简">
 <meta property="og:type" content="article">
 <meta property="og:title" content="生成式推荐基础学习">
 <meta property="og:url" content="https://deicide77.github.io/2026/03/15/recommendation/%E7%94%9F%E6%88%90%E5%BC%8F%E6%8E%A8%E8%8D%90%E5%9F%BA%E7%A1%80%E5%AD%A6%E4%B9%A0/index.html">
 <meta property="og:site_name" content="Deicide77&#39;s Blog">
-<meta property="og:description" content="第五章 生成式推荐基础前言生成式推荐研究的三种主要路径在初读第五章开头时，我其实产生了一个比较明显的感受：作者试图先给读者建立一张“研究地图”。也就是说，在真正进入具体算法之前，先说明当前生成式推荐研究大致沿着哪些方向发展。 然而，仅仅阅读教程中的这些名词时，我发现自己虽然具备一定的深度学习基础，但仍然很难清晰地解释这些概念之间的关系。因此，在查阅一些相关论文和资料之后，我对这一部分进行了简单的整">
+<meta property="og:description" content="第五章 生成式推荐基础前言 生成式推荐研究的三种主要路径 在初读第五章开头时，我其实产生了一个比较明显的感受：作者试图先给读者建立一张“研究地图”。 也就是说，在真正进入具体算法之前，先说明当前生成式推荐研究大致沿着哪些方向发展。 然而，仅仅阅读教程中的这些名词时，我发现自己虽然具备一定的深度学习基础，但仍然很难清晰地解释这些概念之间的关系。因此，在查阅一些相关论文和资料之后，我对这一部分进行了简">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://deicide77.github.io/img/kabi.jpg">
 <meta property="article:published_time" content="2026-03-15T15:23:48.000Z">
-<meta property="article:modified_time" content="2026-03-16T04:06:43.002Z">
+<meta property="article:modified_time" content="2026-03-16T08:22:42.423Z">
 <meta property="article:author" content="deicide77">
 <meta property="article:tag" content="AI, Deep Learning, Recommender System, Transformer">
 <meta name="twitter:card" content="summary">
@@ -18,7 +18,7 @@
   "url": "https://deicide77.github.io/2026/03/15/recommendation/%E7%94%9F%E6%88%90%E5%BC%8F%E6%8E%A8%E8%8D%90%E5%9F%BA%E7%A1%80%E5%AD%A6%E4%B9%A0/",
   "image": "https://deicide77.github.io/img/kabi.jpg",
   "datePublished": "2026-03-15T15:23:48.000Z",
-  "dateModified": "2026-03-16T04:06:43.002Z",
+  "dateModified": "2026-03-16T08:22:42.423Z",
   "author": [
     {
       "@type": "Person",
@@ -159,7 +159,10 @@
   isHighlightShrink: false,
   isToc: true,
   pageType: 'post'
-}</script><meta name="generator" content="Hexo 8.1.1"></head><body><div class="post" id="body-wrap"><header class="post-bg" id="page-header"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">Deicide77's Blog</span></a><a class="nav-page-title" href="/"><span class="site-name">生成式推荐基础学习</span><span class="site-name"><i class="fa-solid fa-circle-arrow-left"></i><span>  返回首页</span></span></a></span><div id="menus"></div></nav><div id="post-info"><h1 class="post-title">生成式推荐基础学习</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2026-03-15T15:23:48.000Z" title="发表于 2026-03-15 23:23:48">2026-03-15</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2026-03-16T04:06:43.002Z" title="更新于 2026-03-16 12:06:43">2026-03-16</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/recommendation/">recommendation</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">浏览量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><h1 id="第五章-生成式推荐基础前言"><a href="#第五章-生成式推荐基础前言" class="headerlink" title="第五章 生成式推荐基础前言"></a>第五章 生成式推荐基础前言</h1><h2 id="生成式推荐研究的三种主要路径"><a href="#生成式推荐研究的三种主要路径" class="headerlink" title="生成式推荐研究的三种主要路径"></a>生成式推荐研究的三种主要路径</h2><p>在初读第五章开头时，我其实产生了一个比较明显的感受：作者试图先给读者建立一张“研究地图”。<br>也就是说，在真正进入具体算法之前，先说明当前生成式推荐研究大致沿着哪些方向发展。</p>
+}</script><meta name="generator" content="Hexo 8.1.1"></head><body><div class="post" id="body-wrap"><header class="post-bg" id="page-header"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">Deicide77's Blog</span></a><a class="nav-page-title" href="/"><span class="site-name">生成式推荐基础学习</span><span class="site-name"><i class="fa-solid fa-circle-arrow-left"></i><span>  返回首页</span></span></a></span><div id="menus"></div></nav><div id="post-info"><h1 class="post-title">生成式推荐基础学习</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2026-03-15T15:23:48.000Z" title="发表于 2026-03-15 23:23:48">2026-03-15</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2026-03-16T08:22:42.423Z" title="更新于 2026-03-16 16:22:42">2026-03-16</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/recommendation/">recommendation</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">浏览量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><h1>第五章 生成式推荐基础前言</h1>
+<h2 id="生成式推荐研究的三种主要路径">生成式推荐研究的三种主要路径</h2>
+<p>在初读第五章开头时，我其实产生了一个比较明显的感受：作者试图先给读者建立一张“研究地图”。<br>
+也就是说，在真正进入具体算法之前，先说明当前生成式推荐研究大致沿着哪些方向发展。</p>
 <p>然而，仅仅阅读教程中的这些名词时，我发现自己虽然具备一定的深度学习基础，但仍然很难清晰地解释这些概念之间的关系。因此，在查阅一些相关论文和资料之后，我对这一部分进行了简单的整理。</p>
 <p>目前围绕 <strong>生成式推荐（Generative Recommendation）</strong> 的研究，大致可以分为三条主要路径：</p>
 <ul>
@@ -169,7 +172,9 @@
 </ul>
 <p>这三种路径并不是互相替代的关系，而更像是从不同角度探索生成式推荐的可能性。</p>
 <hr>
-<h3 id="渐进式演进路径"><a href="#渐进式演进路径" class="headerlink" title="渐进式演进路径"></a>渐进式演进路径</h3><p>在教程中提到的第一条研究路线是 <strong>渐进式演进路径（Progressive Evolution）</strong>。<br>在初读这一部分时，我其实产生了一个疑问：这里提到的 <strong>Scaling 思想</strong>，是否只是简单地“把模型变大”？</p>
+<h3 id="渐进式演进路径">渐进式演进路径</h3>
+<p>在教程中提到的第一条研究路线是 <strong>渐进式演进路径（Progressive Evolution）</strong>。<br>
+在初读这一部分时，我其实产生了一个疑问：这里提到的 <strong>Scaling 思想</strong>，是否只是简单地“把模型变大”？</p>
 <p>最开始我的理解是：推荐系统借鉴大型语言模型的发展经验，通过扩大模型规模来提升推荐能力。例如：</p>
 <ul>
 <li>增大 embedding 维度</li>
@@ -179,15 +184,15 @@
 <p>但在进一步查阅相关论文之后，我逐渐意识到，这里的“Scaling”并不仅仅指<strong>模型规模的扩大</strong>，还有 <strong>模型结构的升级</strong>。</p>
 <p>在传统推荐系统中，排序模型通常比较简单，例如：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">User Embedding</span><br><span class="line">Item Embedding</span><br><span class="line">Feature Cross</span><br><span class="line">MLP</span><br></pre></td></tr></table></figure>
-
-<p>模型的核心任务仍然是计算一个匹配分数：<br><strong>Score &#x3D; f(User, Item, Context)</strong></p>
+<p>模型的核心任务仍然是计算一个匹配分数：<br>
+<strong>Score = f(User, Item, Context)</strong></p>
 <p>这种模型虽然在工程上非常高效，但它通常只能学习 <strong>静态的用户兴趣表示</strong>。</p>
 <p>然而，如果观察真实用户行为，就会发现用户行为天然具有 <strong>序列结构</strong>。例如，一个用户的浏览行为可能是：</p>
 <p><strong>手机 → 手机壳 → 蓝牙耳机 → ?</strong></p>
 <p>这些行为之间往往具有明显的时间顺序和语义关联。用户的兴趣并不是静态的，而是随着行为不断演化的。</p>
 <p>因此，一些研究开始尝试将 <strong>用户行为建模为序列数据</strong>，并使用更强的模型来学习用户兴趣的演化过程。例如：</p>
 <ul>
-<li>使用 <strong>RNN &#x2F; GRU</strong> 建模行为序列</li>
+<li>使用 <strong>RNN / GRU</strong> 建模行为序列</li>
 <li>使用 <strong>Transformer 或自注意力机制</strong> 捕捉长期依赖关系</li>
 <li>扩大模型规模，提高表示能力</li>
 </ul>
@@ -195,28 +200,33 @@
 <ul>
 <li><strong>SASRec（Self-Attentive Sequential Recommendation）</strong></li>
 <li><strong>BERT4Rec</strong></li>
-<li><strong>DIN &#x2F; DIEN</strong></li>
+<li><strong>DIN / DIEN</strong></li>
 <li>各类 Transformer-based 推荐模型</li>
 </ul>
-<p>读到这里时，我其实产生了一个新的困惑：<br>如果用户表示已经从<strong>User ID</strong> 变成了 <strong>User behavior sequence</strong>，那么推荐系统的基本问题结构是否已经发生了变化？</p>
+<p>读到这里时，我其实产生了一个新的困惑：<br>
+如果用户表示已经从<strong>User ID</strong> 变成了 <strong>User behavior sequence</strong>，那么推荐系统的基本问题结构是否已经发生了变化？</p>
 <p>在继续查阅论文之后，我逐渐意识到一个重要事实：</p>
 <p><strong>渐进式演进并没有改变推荐系统的基本问题结构。</strong></p>
-<p>推荐系统仍然是在学习：<br><strong>Score &#x3D; f(User, Item, Context)</strong></p>
-<p>真正发生变化的是 <strong>用户表示方式（User Representation）</strong>。<br>用户不再只是一个静态的 ID embedding，而是由 <strong>用户行为序列</strong> 经过深度模型编码得到的兴趣表示。<br>即<strong>User</strong>不再只是一个<strong>ID</strong>，而是<strong>User history sequence</strong>，然后通过序列模型得到用户表示</p>
+<p>推荐系统仍然是在学习：<br>
+<strong>Score = f(User, Item, Context)</strong></p>
+<p>真正发生变化的是 <strong>用户表示方式（User Representation）</strong>。<br>
+用户不再只是一个静态的 ID embedding，而是由 <strong>用户行为序列</strong> 经过深度模型编码得到的兴趣表示。<br>
+即<strong>User</strong>不再只是一个<strong>ID</strong>，而是<strong>User history sequence</strong>，然后通过序列模型得到用户表示</p>
 <p>过程如下：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">User ID</span><br><span class="line">→</span><br><span class="line">User behavior sequence</span><br><span class="line">→</span><br><span class="line">User interest representation</span><br></pre></td></tr></table></figure>
-
 <p>可能更好的函数表示是（浅薄认识）：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Score(User, Item, Context)</span><br><span class="line">→</span><br><span class="line">Score(f(User sequence), Item)</span><br></pre></td></tr></table></figure>
-
 <p>当把这一过程重新梳理之后，我才逐渐意识到一个更清晰的发展路径：</p>
 <p>推荐系统的模型渐进式演化其实经历了一个非常典型的三阶段过程：</p>
 <ul>
-<li><p><strong>静态推荐阶段</strong> 用户由 ID embedding 表示，模型通常是简单的 MLP 或特征交叉模型。</p>
+<li>
+<p><strong>静态推荐阶段</strong> 用户由 ID embedding 表示，模型通常是简单的 MLP 或特征交叉模型。</p>
 </li>
-<li><p><strong>序列推荐阶段</strong> 用户被表示为行为序列，通过 RNN、Transformer 等模型学习用户兴趣的动态变化。 <strong>论文：SASRec</strong></p>
+<li>
+<p><strong>序列推荐阶段</strong> 用户被表示为行为序列，通过 RNN、Transformer 等模型学习用户兴趣的动态变化。 <strong>论文：SASRec</strong></p>
 </li>
-<li><p><strong>Scaling 阶段</strong> 在序列模型的基础上进一步扩大模型规模，引入更深的网络结构和更大的参数规模，以提升模型表达能力。 <strong>论文：GPTRec</strong></p>
+<li>
+<p><strong>Scaling 阶段</strong> 在序列模型的基础上进一步扩大模型规模，引入更深的网络结构和更大的参数规模，以提升模型表达能力。 <strong>论文：GPTRec</strong></p>
 </li>
 <li></li>
 </ul>
@@ -226,28 +236,36 @@
 <li><strong>模型规模扩展（Scaling）</strong>：借鉴大模型的发展经验，通过增加模型参数规模提升表达能力。</li>
 </ol>
 <p>换句话说，渐进式路径并不是简单地“把模型变大”，而是在保持推荐系统工程架构稳定的前提下，通过 <strong>更强的模型结构和更大的模型规模</strong> 逐步提升推荐能力。</p>
-<h4 id="补充："><a href="#补充：" class="headerlink" title="补充："></a>补充：</h4><p> 以对经典论文SASRec为例（Kang &amp; McAuley, 2018）来理解：<br>这个模型的目标是：<br><strong>根据用户历史行为序列预测下一个物品。</strong><br>模型流程是：</p>
+<h4 id="补充：">补充：</h4>
+<p>以对经典论文SASRec为例（Kang &amp; McAuley, 2018）来理解：<br>
+这个模型的目标是：<br>
+<strong>根据用户历史行为序列预测下一个物品。</strong><br>
+模型流程是：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">User interaction sequence</span><br><span class="line">↓</span><br><span class="line">Self-attention / Transformer</span><br><span class="line">↓</span><br><span class="line">User representation</span><br><span class="line">↓</span><br><span class="line">Score(user_representation, item)</span><br></pre></td></tr></table></figure>
-
-<p>也就是说：<br><strong>最终仍然是对 Item 计算分数。</strong></p>
+<p>也就是说：<br>
+<strong>最终仍然是对 Item 计算分数。</strong></p>
 <p>数学形式：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">h_u = Encoder(item_1 ... item_t)</span><br><span class="line"></span><br><span class="line">Score = h_u · e_i</span><br></pre></td></tr></table></figure>
-
 <p>其中：</p>
 <ul>
-<li>h_u &#x3D; 用户兴趣表示</li>
-<li>e_i &#x3D; item embedding</li>
+<li>h_u = 用户兴趣表示</li>
+<li>e_i = item embedding</li>
 </ul>
 <p>所以就架构而言仍然是判别式推荐</p>
-<h3 id="知识增强路径"><a href="#知识增强路径" class="headerlink" title="知识增强路径"></a>知识增强路径</h3><p>在探索第一条 <strong>渐进式演进路径</strong> 之后，我继续阅读教程中提到的第二条路线：<strong>知识增强路径（Knowledge-enhanced Recommendation）</strong>。</p>
+<h3 id="知识增强路径">知识增强路径</h3>
+<p>在探索第一条 <strong>渐进式演进路径</strong> 之后，我继续阅读教程中提到的第二条路线：<strong>知识增强路径（Knowledge-enhanced Recommendation）</strong>。</p>
 <p>教程中的描述是：</p>
 <blockquote>
 <p>利用 LLM 蕴含的丰富世界知识，通过语义对齐、特征增强等方式，将 LLM 的语言理解能力注入到传统推荐模型中。</p>
 </blockquote>
-<p>在第一次读到这里时，我其实有些困惑：<br>如果推荐系统已经可以通过用户行为数据进行学习，那么 <strong>为什么还需要引入 LLM 的知识？</strong></p>
-<p>进一步思考之后，我了解到：<br>传统推荐系统虽然在行为建模上非常强，但在 <strong>语义理解能力</strong> 上其实是非常有限的。</p>
-<p>在大多数推荐系统中，物品通常是通过 <strong>ID</strong> 表示的，例如：<br><strong>Item ID &#x3D; 10234</strong></p>
-<p>对于推荐模型来说，这只是一个数字。模型可以通过用户行为学习“哪些用户喜欢这个 ID”，但它并不知道这个物品真正代表什么内容。例如：<br><strong>10234 → iPhone 15</strong></p>
+<p>在第一次读到这里时，我其实有些困惑：<br>
+如果推荐系统已经可以通过用户行为数据进行学习，那么 <strong>为什么还需要引入 LLM 的知识？</strong></p>
+<p>进一步思考之后，我了解到：<br>
+传统推荐系统虽然在行为建模上非常强，但在 <strong>语义理解能力</strong> 上其实是非常有限的。</p>
+<p>在大多数推荐系统中，物品通常是通过 <strong>ID</strong> 表示的，例如：<br>
+<strong>Item ID = 10234</strong></p>
+<p>对于推荐模型来说，这只是一个数字。模型可以通过用户行为学习“哪些用户喜欢这个 ID”，但它并不知道这个物品真正代表什么内容。例如：<br>
+<strong>10234 → iPhone 15</strong></p>
 <p>在传统推荐系统中，模型并不会天然理解：</p>
 <ul>
 <li>iPhone 是一种 <strong>智能手机</strong></li>
@@ -255,9 +273,11 @@
 <li>iPhone 和 AirPods 属于同一生态</li>
 </ul>
 <p>这些信息其实属于 <strong>世界知识（World Knowledge）</strong>，而大型语言模型正是在这种知识建模上表现非常强。</p>
-<p>因此，一些研究开始尝试利用 LLM 来增强推荐系统的语义理解能力。<br>在这一过程中，我开始理解教程中提到的两个关键概念：</p>
+<p>因此，一些研究开始尝试利用 LLM 来增强推荐系统的语义理解能力。<br>
+在这一过程中，我开始理解教程中提到的两个关键概念：</p>
 <p><strong>1. 语义对齐（Semantic Alignment）</strong></p>
-<p>语义对齐的核心思想是：<br>让推荐系统中的 <strong>物品表示</strong> 不再只是 ID，而是与文本语义空间进行对齐。</p>
+<p>语义对齐的核心思想是：<br>
+让推荐系统中的 <strong>物品表示</strong> 不再只是 ID，而是与文本语义空间进行对齐。</p>
 <p>例如，一个商品通常包含大量文本信息：</p>
 <ul>
 <li>商品标题</li>
@@ -267,15 +287,15 @@
 </ul>
 <p>这些文本可以输入语言模型（如 BERT 或 LLM），得到一个 <strong>语义向量表示</strong>：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Item text</span><br><span class="line">↓</span><br><span class="line">Language Model</span><br><span class="line">↓</span><br><span class="line">Semantic embedding</span><br></pre></td></tr></table></figure>
-
 <p>这样一来，推荐系统中的 Item 表示就不再只是一个离散 ID，而是包含了 <strong>语义信息的向量表示</strong>。模型不仅能够学习用户行为模式，还能够理解内容之间的语义关系，例如：</p>
 <ul>
-<li>iPhone 与 iPad 属于同一品牌生态  </li>
-<li>DSLR 相机与镜头属于同一摄影领域  </li>
+<li>iPhone 与 iPad 属于同一品牌生态</li>
+<li>DSLR 相机与镜头属于同一摄影领域</li>
 <li>科幻电影与太空主题内容具有语义相关性</li>
 </ul>
 <p>在阅读这一部分时，我也联想到之前阅读的一篇相关论文 <strong>Generative Next POI Recommendation with Semantic ID</strong></p>
-<p>在这项研究中，研究者提出了一种 <strong>Semantic ID（语义 ID）</strong> 的表示方式。<br>与传统推荐系统直接使用随机数字 ID 不同，Semantic ID 会将物品编码为一组 <strong>具有语义结构的 token</strong>，例如包含：</p>
+<p>在这项研究中，研究者提出了一种 <strong>Semantic ID（语义 ID）</strong> 的表示方式。<br>
+与传统推荐系统直接使用随机数字 ID 不同，Semantic ID 会将物品编码为一组 <strong>具有语义结构的 token</strong>，例如包含：</p>
 <ul>
 <li>物品类别</li>
 <li>地理区域</li>
@@ -283,7 +303,8 @@
 <li>协同访问关系</li>
 </ul>
 <p>这些语义信息被组合成一个结构化的 ID 序列，使模型能够在推荐过程中利用物品的语义结构进行推理。</p>
-<p>从这个角度来看，Semantic ID 可以被理解为一种更进一步的语义对齐方法：<br>推荐系统不再只是为物品学习一个向量表示，而是尝试构建 <strong>具有语义结构的物品表示体系</strong>。</p>
+<p>从这个角度来看，Semantic ID 可以被理解为一种更进一步的语义对齐方法：<br>
+推荐系统不再只是为物品学习一个向量表示，而是尝试构建 <strong>具有语义结构的物品表示体系</strong>。</p>
 <p><strong>2. 特征增强（Feature Augmentation）</strong></p>
 <p>另一种思路是利用 LLM 的推理能力，为推荐系统生成新的语义特征。</p>
 <p>例如，一个用户的行为记录可能是：</p>
@@ -292,26 +313,27 @@
 <li>MacBook</li>
 <li>AirPods</li>
 </ul>
-<p>传统推荐系统只看到三个商品 ID。<br>但语言模型可以推断出一个更高层的语义特征：<br><strong>User interest &#x3D; Apple ecosystem</strong></p>
+<p>传统推荐系统只看到三个商品 ID。<br>
+但语言模型可以推断出一个更高层的语义特征：<br>
+<strong>User interest = Apple ecosystem</strong></p>
 <p>这种语义信息原本并不存在于用户行为数据中，但可以通过 LLM 推理得到，然后作为新的特征加入推荐模型。</p>
 <p>因此，如果用一句话总结知识增强路径，它的核心思想其实是：</p>
 <blockquote>
 <p><strong>在传统推荐系统的基础上，引入大型语言模型的语义理解能力，使推荐系统不仅能够学习用户行为模式，还能够理解内容本身的语义信息。</strong></p>
 </blockquote>
-<h3 id="完全生成式路径"><a href="#完全生成式路径" class="headerlink" title="完全生成式路径"></a>完全生成式路径</h3><p>在理解知识增强路径之后，我逐渐意识到一个非常有意思的变化。</p>
+<h3 id="完全生成式路径">完全生成式路径</h3>
+<p>在理解知识增强路径之后，我逐渐意识到一个非常有意思的变化。</p>
 <p>在最早的推荐系统中，模型主要依赖的是 <strong>用户行为数据</strong>。推荐系统通过用户点击、浏览、购买等行为信号来学习用户兴趣，本质上是一种 <strong>行为驱动（behavior-driven）</strong> 的建模方式。</p>
 <p>而在知识增强路径中，推荐系统开始引入 <strong>语义信息（semantic knowledge）</strong>。通过语言模型对文本内容进行建模，系统不仅可以看到用户行为，还能够理解物品内容的语义信息，以及不同内容之间的概念关系。</p>
 <p>在这一阶段，推荐系统真正同时拥有了两种重要的信息来源：</p>
 <ul>
-<li><strong>行为信息（Behavior Signal）</strong>：用户历史交互数据  </li>
+<li><strong>行为信息（Behavior Signal）</strong>：用户历史交互数据</li>
 <li><strong>语义信息（Semantic Knowledge）</strong>：由语言模型提供的内容理解能力</li>
 </ul>
 <p>当这两类信息被同时纳入推荐模型之后，一个新的问题自然就出现了：</p>
 <p>如果推荐系统既能够理解 <strong>用户行为序列</strong>，又能够理解 <strong>内容语义结构</strong>，那么推荐问题是否可以被重新定义？</p>
 <p>换句话说，推荐系统是否可以不再依赖传统的“召回 → 排序 → 重排”流水线，而是像语言模型生成文本一样，<strong>直接生成推荐结果</strong>？</p>
-<p>从这个角度来看，知识增强路径其实已经为下一阶段的研究奠定了基础：<br>当 <strong>语义信息与行为信息开始被统一建模</strong> 时，推荐系统也就逐渐具备了走向 <strong>完全生成式推荐（Fully Generative Recommendation）</strong> 的条件。</p>
+<p>从这个角度来看，知识增强路径其实已经为下一阶段的研究奠定了基础：<br>
+当 <strong>语义信息与行为信息开始被统一建模</strong> 时，推荐系统也就逐渐具备了走向 <strong>完全生成式推荐（Fully Generative Recommendation）</strong> 的条件。</p>
 <p>接下来，我将会进入真正的推荐范式演进的章节进行学习，探索</p>
-<blockquote>
-<p>注^(*￣(0)￣)^：本文中的理解主要来自个人阅读、资料查阅，以及<br><strong>与「硅基导师」一起学习的结果</strong>。<br>如果文中有理解不准确或表述不严谨的地方，<br>欢迎大家指出，一起讨论与修正～ </p>
-</blockquote>
-</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a target="_blank" rel="noopener" href="https://github.com/deicide77">deicide77</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://deicide77.github.io/2026/03/15/recommendation/%E7%94%9F%E6%88%90%E5%BC%8F%E6%8E%A8%E8%8D%90%E5%9F%BA%E7%A1%80%E5%AD%A6%E4%B9%A0/">https://deicide77.github.io/2026/03/15/recommendation/%E7%94%9F%E6%88%90%E5%BC%8F%E6%8E%A8%E8%8D%90%E5%9F%BA%E7%A1%80%E5%AD%A6%E4%B9%A0/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来源 <a href="https://deicide77.github.io" target="_blank">Deicide77's Blog</a>！</span></div></div><div class="tag_share"><div class="post-share"><div class="social-share" data-image="/img/kabi.jpg" data-sites="facebook,x,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related  no-desc" href="/2026/03/16/recommendation/%E6%8E%A8%E8%8D%90%E8%8C%83%E5%BC%8F%E7%9A%84%E6%BC%94%E8%BF%9B/" title="推荐范式的演进"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info"><div class="info-1"><div class="info-item-1">上一篇</div><div class="info-item-2">推荐范式的演进</div></div></div></a><a class="pagination-related" href="/2026/03/15/recommendation/%E6%B7%B1%E5%BA%A6%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F%E5%85%A5%E9%97%A8%EF%BC%9A%E5%88%9D%E5%AD%A6%E8%80%85%E6%8E%A2%E7%B4%A2/" title="深度推荐系统入门：初学者探索"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-right"><div class="info-1"><div class="info-item-1">下一篇</div><div class="info-item-2">深度推荐系统入门：初学者探索</div></div><div class="info-2"><div class="info-item-1">前言：从疑问开始理解推荐系统在开始正式学习推荐系统之前，我选择先阅读教程的第一章，对推荐系统整体结构进行一个宏观理解。虽然本书的核心内容从第五章开始，但作为一个刚接触推荐系统的学习者，我希望先理解推荐系统整体在解决什么问题，以及它在现代互联网系统中的角色。 在开始学习推荐系统时，我首先产生的一个疑问是： 推荐系统和搜索系统到底有什么区别？ 搜索系统的逻辑相对容易理解。用户输入一个明确的查询，例如“推荐系统教程”，系统只需要在数据库中找到与这个查询最相关的内容并返回结果。搜索的本质可以概括为： Query → Matching → Ranking 也就是说，搜索系统的核心任务是根据用户明确表达的需求，在海量数据中找到最相关的信息。 然而推荐系统面对的是一个完全不同的问题。 在绝大多数情况下，用户并不会明确告诉系统自己想要什么内容。例如，当用户打开抖音、B站或者今日头条时，用户通常并不会输入任何查询。此时系统需要在没有明确指令的情况下，主动判断用户可能感兴趣的内容。 换句话说，推荐系统需要解决的是这样一个问题： User → Predict Potential Interest → ...</div></div></div></a></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="/img/kabi.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">deicide77</div><div class="author-info-description">AI research notes</div><div class="site-data"><a href="/archives/"><div class="headline">文章</div><div class="length-num">5</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">7</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">4</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/deicide77"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%AC%AC%E4%BA%94%E7%AB%A0-%E7%94%9F%E6%88%90%E5%BC%8F%E6%8E%A8%E8%8D%90%E5%9F%BA%E7%A1%80%E5%89%8D%E8%A8%80"><span class="toc-number">1.</span> <span class="toc-text">第五章 生成式推荐基础前言</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%94%9F%E6%88%90%E5%BC%8F%E6%8E%A8%E8%8D%90%E7%A0%94%E7%A9%B6%E7%9A%84%E4%B8%89%E7%A7%8D%E4%B8%BB%E8%A6%81%E8%B7%AF%E5%BE%84"><span class="toc-number">1.1.</span> <span class="toc-text">生成式推荐研究的三种主要路径</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B8%90%E8%BF%9B%E5%BC%8F%E6%BC%94%E8%BF%9B%E8%B7%AF%E5%BE%84"><span class="toc-number">1.1.1.</span> <span class="toc-text">渐进式演进路径</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%A1%A5%E5%85%85%EF%BC%9A"><span class="toc-number">1.1.1.1.</span> <span class="toc-text">补充：</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%9F%A5%E8%AF%86%E5%A2%9E%E5%BC%BA%E8%B7%AF%E5%BE%84"><span class="toc-number">1.1.2.</span> <span class="toc-text">知识增强路径</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%8C%E5%85%A8%E7%94%9F%E6%88%90%E5%BC%8F%E8%B7%AF%E5%BE%84"><span class="toc-number">1.1.3.</span> <span class="toc-text">完全生成式路径</span></a></li></ol></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2026/03/16/recommendation/%E6%8E%A8%E8%8D%90%E8%8C%83%E5%BC%8F%E7%9A%84%E6%BC%94%E8%BF%9B/" title="推荐范式的演进">推荐范式的演进</a><time datetime="2026-03-15T17:42:56.000Z" title="发表于 2026-03-16 01:42:56">2026-03-16</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2026/03/15/recommendation/%E7%94%9F%E6%88%90%E5%BC%8F%E6%8E%A8%E8%8D%90%E5%9F%BA%E7%A1%80%E5%AD%A6%E4%B9%A0/" title="生成式推荐基础学习">生成式推荐基础学习</a><time datetime="2026-03-15T15:23:48.000Z" title="发表于 2026-03-15 23:23:48">2026-03-15</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2026/03/15/recommendation/%E6%B7%B1%E5%BA%A6%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F%E5%85%A5%E9%97%A8%EF%BC%9A%E5%88%9D%E5%AD%A6%E8%80%85%E6%8E%A2%E7%B4%A2/" title="深度推荐系统入门：初学者探索">深度推荐系统入门：初学者探索</a><time datetime="2026-03-15T09:59:58.000Z" title="发表于 2026-03-15 17:59:58">2026-03-15</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2026/03/15/openclaw-claw%E5%88%9D%E5%A7%8B%E4%BD%BF%E7%94%A8/" title="OpenClaw 使用指南：AI开发者的终端助手">OpenClaw 使用指南：AI开发者的终端助手</a><time datetime="2026-03-14T16:00:00.000Z" title="发表于 2026-03-15 00:00:00">2026-03-15</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2026/03/15/hexo-guide/" title="Hexo 博客完整使用指南（从安装到发布）">Hexo 博客完整使用指南（从安装到发布）</a><time datetime="2026-03-14T16:00:00.000Z" title="发表于 2026-03-15 00:00:00">2026-03-15</time></div></div></div></div></div></div></main><footer id="footer"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;&nbsp;2025 - 2026 By deicide77</span><span class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo 8.1.1</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly 5.5.4</a></span></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=5.5.4"></script><script src="/js/main.js?v=5.5.4"></script><div class="js-pjax"></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a target="_blank" rel="noopener" href="https://github.com/deicide77">deicide77</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://deicide77.github.io/2026/03/15/recommendation/%E7%94%9F%E6%88%90%E5%BC%8F%E6%8E%A8%E8%8D%90%E5%9F%BA%E7%A1%80%E5%AD%A6%E4%B9%A0/">https://deicide77.github.io/2026/03/15/recommendation/%E7%94%9F%E6%88%90%E5%BC%8F%E6%8E%A8%E8%8D%90%E5%9F%BA%E7%A1%80%E5%AD%A6%E4%B9%A0/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来源 <a href="https://deicide77.github.io" target="_blank">Deicide77's Blog</a>！</span></div></div><div class="tag_share"><div class="post-share"><div class="social-share" data-image="/img/kabi.jpg" data-sites="facebook,x,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related" href="/2026/03/16/recommendation/%E6%8E%A8%E8%8D%90%E8%8C%83%E5%BC%8F%E7%9A%84%E6%BC%94%E8%BF%9B/" title="推荐范式的演进"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info"><div class="info-1"><div class="info-item-1">上一篇</div><div class="info-item-2">推荐范式的演进</div></div><div class="info-2"><div class="info-item-1">5.1 &lt;推荐范式的演进 &gt; 笔记推荐范式的演进：从判别到生成在阅读这一节时，我其实有一种“猜测被验证”的感觉。 在前面的学习中，我逐渐形成了一个直觉：虽然推荐系统经历了从协同过滤到深度学习模型的巨大变化，但其底层问题似乎始终没有改变——系统始终在做一件事情： 判断某个用户是否会喜欢某个物品。 当看到教程中明确提出：  推荐系统的底层建模范式始终没有改变——我们一直在做判别。  我才意识到，这种直觉其实正是现代推荐系统的核心逻辑。 从最早的协同过滤，到矩阵分解，再到如今复杂的深度神经网络模型，推荐系统的目标始终是学习一个评分函数： </div></div></div></a><a class="pagination-related" href="/2026/03/15/recommendation/%E6%B7%B1%E5%BA%A6%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F%E5%85%A5%E9%97%A8%EF%BC%9A%E5%88%9D%E5%AD%A6%E8%80%85%E6%8E%A2%E7%B4%A2/" title="深度推荐系统入门：初学者探索"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-right"><div class="info-1"><div class="info-item-1">下一篇</div><div class="info-item-2">深度推荐系统入门：初学者探索</div></div><div class="info-2"><div class="info-item-1">前言：从好奇开始 在开始正式学习推荐系统之前，我选择先阅读教程的第一章，对推荐系统整体结构进行一个宏观理解。虽然本书的核心内容从第五章开始，但作为一个刚接触推荐系统的学习者，我希望先理解推荐系统整体在解决什么问题，以及它在现代互联网系统中的角色。 在开始学习推荐系统时，我首先产生的一个好奇是： 推荐系统和搜索系统到底有什么区别？ 搜索系统的逻辑相对容易理解。用户输入一个明确的查询，例如“推荐系统教程”，系统只需要在数据库中找到与这个查询最相关的内容并返回结果。搜索的本质可以概括为： Query → Matching → Ranking 搜索系统的核心任务是根据用户明确表达的需求，在海量数据中找到最相关的信息。 然而推荐系统面对的是一个完全不同的问题。 在绝大多数情况下，用户并不会明确告诉系统自己想要什么内容。例如，当用户打开抖音、B站或者今日头条时，用户通常并不会输入任何查询。此时系统需要在没有明确指令的情况下，主动判断用户可能感兴趣的内容。即： User → Predict Potential Interest → Recommend Items 而推荐系统需要根据用户的历史行...</div></div></div></a></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="/img/kabi.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">deicide77</div><div class="author-info-description">AI research notes</div><div class="site-data"><a href="/archives/"><div class="headline">文章</div><div class="length-num">5</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">7</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">4</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/deicide77"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-number">1.</span> <span class="toc-text">第五章 生成式推荐基础前言</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%94%9F%E6%88%90%E5%BC%8F%E6%8E%A8%E8%8D%90%E7%A0%94%E7%A9%B6%E7%9A%84%E4%B8%89%E7%A7%8D%E4%B8%BB%E8%A6%81%E8%B7%AF%E5%BE%84"><span class="toc-number">1.1.</span> <span class="toc-text">生成式推荐研究的三种主要路径</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B8%90%E8%BF%9B%E5%BC%8F%E6%BC%94%E8%BF%9B%E8%B7%AF%E5%BE%84"><span class="toc-number">1.1.1.</span> <span class="toc-text">渐进式演进路径</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%A1%A5%E5%85%85%EF%BC%9A"><span class="toc-number">1.1.1.1.</span> <span class="toc-text">补充：</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%9F%A5%E8%AF%86%E5%A2%9E%E5%BC%BA%E8%B7%AF%E5%BE%84"><span class="toc-number">1.1.2.</span> <span class="toc-text">知识增强路径</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%8C%E5%85%A8%E7%94%9F%E6%88%90%E5%BC%8F%E8%B7%AF%E5%BE%84"><span class="toc-number">1.1.3.</span> <span class="toc-text">完全生成式路径</span></a></li></ol></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2026/03/16/recommendation/%E6%8E%A8%E8%8D%90%E8%8C%83%E5%BC%8F%E7%9A%84%E6%BC%94%E8%BF%9B/" title="推荐范式的演进">推荐范式的演进</a><time datetime="2026-03-15T17:42:56.000Z" title="发表于 2026-03-16 01:42:56">2026-03-16</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2026/03/15/recommendation/%E7%94%9F%E6%88%90%E5%BC%8F%E6%8E%A8%E8%8D%90%E5%9F%BA%E7%A1%80%E5%AD%A6%E4%B9%A0/" title="生成式推荐基础学习">生成式推荐基础学习</a><time datetime="2026-03-15T15:23:48.000Z" title="发表于 2026-03-15 23:23:48">2026-03-15</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2026/03/15/recommendation/%E6%B7%B1%E5%BA%A6%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F%E5%85%A5%E9%97%A8%EF%BC%9A%E5%88%9D%E5%AD%A6%E8%80%85%E6%8E%A2%E7%B4%A2/" title="深度推荐系统入门：初学者探索">深度推荐系统入门：初学者探索</a><time datetime="2026-03-15T09:59:58.000Z" title="发表于 2026-03-15 17:59:58">2026-03-15</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2026/03/15/openclaw-claw%E5%88%9D%E5%A7%8B%E4%BD%BF%E7%94%A8/" title="OpenClaw 使用指南：AI开发者的终端助手">OpenClaw 使用指南：AI开发者的终端助手</a><time datetime="2026-03-14T16:00:00.000Z" title="发表于 2026-03-15 00:00:00">2026-03-15</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2026/03/15/hexo-guide/" title="Hexo 博客完整使用指南（从安装到发布）">Hexo 博客完整使用指南（从安装到发布）</a><time datetime="2026-03-14T16:00:00.000Z" title="发表于 2026-03-15 00:00:00">2026-03-15</time></div></div></div></div></div></div></main><footer id="footer"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;&nbsp;2025 - 2026 By deicide77</span><span class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo 8.1.1</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly 5.5.4</a></span></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=5.5.4"></script><script src="/js/main.js?v=5.5.4"></script><div class="js-pjax"></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
