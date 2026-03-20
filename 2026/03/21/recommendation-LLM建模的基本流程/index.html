@@ -1,0 +1,340 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>recommendation/LLM建模的基本流程 | Deicide77's Blog</title><meta name="author" content="deicide77"><meta name="copyright" content="deicide77"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="从 LLM 到生成式推荐：一个统一建模视角最近在系统梳理大模型的时候，有一个很清晰的感受：LLM 真正重要的，其实不是 Transformer 本身，而是它背后的“训练范式”。 如果只看模型结构，从 GPT-2 到 GPT-4 并没有本质变化，核心仍然是自回归 Transformer。但能力的飞跃，来自一套逐渐成熟的流程：  预训练 → 指令微调 → 偏好对齐  这三步，本质上是在回答三个问题：">
+<meta property="og:type" content="article">
+<meta property="og:title" content="recommendation&#x2F;LLM建模的基本流程">
+<meta property="og:url" content="https://deicide77.github.io/2026/03/21/recommendation-LLM%E5%BB%BA%E6%A8%A1%E7%9A%84%E5%9F%BA%E6%9C%AC%E6%B5%81%E7%A8%8B/index.html">
+<meta property="og:site_name" content="Deicide77&#39;s Blog">
+<meta property="og:description" content="从 LLM 到生成式推荐：一个统一建模视角最近在系统梳理大模型的时候，有一个很清晰的感受：LLM 真正重要的，其实不是 Transformer 本身，而是它背后的“训练范式”。 如果只看模型结构，从 GPT-2 到 GPT-4 并没有本质变化，核心仍然是自回归 Transformer。但能力的飞跃，来自一套逐渐成熟的流程：  预训练 → 指令微调 → 偏好对齐  这三步，本质上是在回答三个问题：">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://deicide77.github.io/img/kabi.jpg">
+<meta property="article:published_time" content="2026-03-20T16:14:37.000Z">
+<meta property="article:modified_time" content="2026-03-20T16:18:33.063Z">
+<meta property="article:author" content="deicide77">
+<meta property="article:tag" content="Attention">
+<meta property="article:tag" content="LLM">
+<meta property="article:tag" content="Transformer">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://deicide77.github.io/img/kabi.jpg"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "recommendation/LLM建模的基本流程",
+  "url": "https://deicide77.github.io/2026/03/21/recommendation-LLM%E5%BB%BA%E6%A8%A1%E7%9A%84%E5%9F%BA%E6%9C%AC%E6%B5%81%E7%A8%8B/",
+  "image": "https://deicide77.github.io/img/kabi.jpg",
+  "datePublished": "2026-03-20T16:14:37.000Z",
+  "dateModified": "2026-03-20T16:18:33.063Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "deicide77",
+      "url": "https://github.com/deicide77"
+    }
+  ]
+}</script><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://deicide77.github.io/2026/03/21/recommendation-LLM%E5%BB%BA%E6%A8%A1%E7%9A%84%E5%9F%BA%E6%9C%AC%E6%B5%81%E7%A8%8B/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css?v=5.5.4"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.1.0/css/all.min.css"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'null',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.13.0/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'recommendation/LLM建模的基本流程',
+  isHighlightShrink: false,
+  isToc: true,
+  pageType: 'post'
+}</script><meta name="generator" content="Hexo 8.1.1"></head><body><div class="post" id="body-wrap"><header class="post-bg" id="page-header"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">Deicide77's Blog</span></a><a class="nav-page-title" href="/"><span class="site-name">recommendation/LLM建模的基本流程</span><span class="site-name"><i class="fa-solid fa-circle-arrow-left"></i><span>  返回首页</span></span></a></span><div id="menus"></div></nav><div id="post-info"><h1 class="post-title">recommendation/LLM建模的基本流程</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2026-03-20T16:14:37.000Z" title="发表于 2026-03-21 00:14:37">2026-03-21</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2026-03-20T16:18:33.063Z" title="更新于 2026-03-21 00:18:33">2026-03-21</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/AI/">AI</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">浏览量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><h1 id="从-LLM-到生成式推荐：一个统一建模视角"><a href="#从-LLM-到生成式推荐：一个统一建模视角" class="headerlink" title="从 LLM 到生成式推荐：一个统一建模视角"></a>从 LLM 到生成式推荐：一个统一建模视角</h1><p>最近在系统梳理大模型的时候，有一个很清晰的感受：LLM 真正重要的，其实不是 Transformer 本身，而是它背后的“训练范式”。</p>
+<p>如果只看模型结构，从 GPT-2 到 GPT-4 并没有本质变化，核心仍然是自回归 Transformer。但能力的飞跃，来自一套逐渐成熟的流程：</p>
+<blockquote>
+<p>预训练 → 指令微调 → 偏好对齐</p>
+</blockquote>
+<p>这三步，本质上是在回答三个问题：</p>
+<ul>
+<li>模型如何“会说话”（语言能力）</li>
+<li>模型如何“听懂人话”（任务理解）</li>
+<li>模型如何“说人话”（符合人类偏好）</li>
+</ul>
+<hr>
+<h2 id="1-预训练：让模型学会“语言”"><a href="#1-预训练：让模型学会“语言”" class="headerlink" title="1. 预训练：让模型学会“语言”"></a>1. 预训练：让模型学会“语言”</h2><p>预训练阶段本质非常简单：<strong>预测下一个 token</strong>。</p>
+<p>模型不断学习：</p>
+<blockquote>
+<p>在给定上下文的情况下，什么词最有可能出现？</p>
+</blockquote>
+<p>这个目标看起来很朴素，但在大规模数据 + 大模型参数下，会产生一个很关键的现象：</p>
+<p> 模型不只是学会语言，还学会了知识、逻辑甚至推理能力</p>
+<p>也就是所谓的 <strong>Scaling Law + Emergent Ability</strong></p>
+<p>可以简单理解为：</p>
+<blockquote>
+<p>数据 × 参数规模 → 能力“涌现”</p>
+</blockquote>
+<p>这一阶段解决的是：<br><strong>模型有没有“基础表达能力”</strong></p>
+<hr>
+<h2 id="2-指令微调：让模型学会“做任务”"><a href="#2-指令微调：让模型学会“做任务”" class="headerlink" title="2. 指令微调：让模型学会“做任务”"></a>2. 指令微调：让模型学会“做任务”</h2><p>预训练后的模型，其实只是一个“高级自动补全工具”。</p>
+<p>比如你问问题，它可能继续编故事，而不是认真回答。</p>
+<p>所以第二阶段要解决的问题是：</p>
+<blockquote>
+<p>如何让模型理解“这是一个任务，而不是续写文本”？</p>
+</blockquote>
+<p>做法是构造：</p>
+<blockquote>
+<p>Instruction + Input → Output</p>
+</blockquote>
+<p>比如：</p>
+<ul>
+<li>写总结</li>
+<li>做分类</li>
+<li>回答问题</li>
+<li>多轮对话</li>
+</ul>
+<p>关键点在于：</p>
+<blockquote>
+<p>loss 只算在 output 上<br>模型开始学会“条件生成”</p>
+</blockquote>
+<p>这一阶段带来的变化非常大：</p>
+<blockquote>
+<p>模型从“会说话” → “会干活”</p>
+</blockquote>
+<hr>
+<h2 id="3-偏好对齐：让模型更像“人”"><a href="#3-偏好对齐：让模型更像“人”" class="headerlink" title="3. 偏好对齐：让模型更像“人”"></a>3. 偏好对齐：让模型更像“人”</h2><p>即使经过 SFT，模型仍然会出现：</p>
+<ul>
+<li>啰嗦</li>
+<li>跑题</li>
+<li>幻觉</li>
+<li>不安全内容</li>
+</ul>
+<p>原因很简单：</p>
+<blockquote>
+<p>SFT 学的是“人类怎么回答”，不是“什么回答更好”</p>
+</blockquote>
+<p>于是引入第三阶段：<strong>偏好对齐（RLHF &#x2F; DPO）</strong></p>
+<p>核心思想：</p>
+<blockquote>
+<p>不再直接教模型答案<br>而是教模型“哪种答案更好”</p>
+</blockquote>
+<p>流程可以理解为：</p>
+<ol>
+<li>生成多个答案</li>
+<li>人类排序</li>
+<li>训练一个“评分模型”</li>
+<li>再用这个评分去优化模型</li>
+</ol>
+<p>最终效果是：</p>
+<ul>
+<li>更简洁</li>
+<li>更可靠</li>
+<li>更符合人类意图</li>
+</ul>
+<hr>
+<h2 id="4-一个关键转变：从“语言模型”到“决策模型”"><a href="#4-一个关键转变：从“语言模型”到“决策模型”" class="headerlink" title="4. 一个关键转变：从“语言模型”到“决策模型”"></a>4. 一个关键转变：从“语言模型”到“决策模型”</h2><p>到这里，其实可以看到一个本质变化：</p>
+<blockquote>
+<p>LLM 不只是生成文本，而是在做“序列决策”</p>
+</blockquote>
+<p>这点非常重要，因为它直接决定了：</p>
+<blockquote>
+<p>LLM 可以迁移到推荐系统</p>
+</blockquote>
+<hr>
+<h2 id="5-LLM-→-推荐系统：不是套用，而是重构"><a href="#5-LLM-→-推荐系统：不是套用，而是重构" class="headerlink" title="5. LLM → 推荐系统：不是套用，而是重构"></a>5. LLM → 推荐系统：不是套用，而是重构</h2><p>很多人第一反应是：</p>
+<blockquote>
+<p>能不能直接用 LLM 做推荐？</p>
+</blockquote>
+<p>答案是：可以，但必须改。</p>
+<p>因为推荐系统和 NLP 有本质差异：</p>
+<hr>
+<h3 id="（1）输入不再是纯文本"><a href="#（1）输入不再是纯文本" class="headerlink" title="（1）输入不再是纯文本"></a>（1）输入不再是纯文本</h3><p>推荐系统面对的是：</p>
+<ul>
+<li>用户行为序列</li>
+<li>物品 ID</li>
+<li>多模态信息</li>
+</ul>
+<p>问题来了：</p>
+<blockquote>
+<p>模型怎么理解“item_id &#x3D; 12345”？</p>
+</blockquote>
+<p>这就引出了核心问题：</p>
+<blockquote>
+<p><strong>物品 Token 化</strong></p>
+</blockquote>
+<hr>
+<h3 id="（2）信号来源变了"><a href="#（2）信号来源变了" class="headerlink" title="（2）信号来源变了"></a>（2）信号来源变了</h3><p>NLP 学的是“语义关系”，但推荐更重要的是：</p>
+<blockquote>
+<p>协同过滤信号（谁和谁一起被点击）</p>
+</blockquote>
+<p>这类信息：</p>
+<blockquote>
+<p>无法从文本中直接学到</p>
+</blockquote>
+<p>所以必须解决：</p>
+<blockquote>
+<p>如何把协同信号融入 LLM？</p>
+</blockquote>
+<hr>
+<h3 id="（3）反馈机制不同"><a href="#（3）反馈机制不同" class="headerlink" title="（3）反馈机制不同"></a>（3）反馈机制不同</h3><p>LLM 用的是：</p>
+<ul>
+<li>人类标注（显式偏好）</li>
+</ul>
+<p>推荐系统用的是：</p>
+<ul>
+<li>点击 &#x2F; 停留时间 &#x2F; 跳过（隐式反馈）</li>
+</ul>
+<p>所以问题变成：</p>
+<blockquote>
+<p>如何从行为中构造“偏好数据”？</p>
+</blockquote>
+<hr>
+<h3 id="（4）工程约束更强"><a href="#（4）工程约束更强" class="headerlink" title="（4）工程约束更强"></a>（4）工程约束更强</h3><p>推荐系统是在线系统：</p>
+<ul>
+<li>延迟要求：几十 ms</li>
+<li>而 LLM：自回归生成，天然慢</li>
+</ul>
+<p>这带来一个现实问题：</p>
+<blockquote>
+<p>生成式推荐如何落地？</p>
+</blockquote>
+<hr>
+<h2 id="6-一个统一理解（很重要）"><a href="#6-一个统一理解（很重要）" class="headerlink" title="6. 一个统一理解（很重要）"></a>6. 一个统一理解（很重要）</h2><p>如果把推荐系统重新抽象，其实可以变成：</p>
+<blockquote>
+<p>给定用户历史 → 生成下一步行为序列</p>
+</blockquote>
+<p>也就是说：</p>
+<blockquote>
+<p>推荐问题 &#x3D; 序列生成问题</p>
+</blockquote>
+<p>这也是为什么：</p>
+<blockquote>
+<p>Transformer + LLM 会成为下一代推荐系统的核心方向</p>
+</blockquote>
+<hr>
+<h2 id="7-我的理解（这一段你面试可以说）"><a href="#7-我的理解（这一段你面试可以说）" class="headerlink" title="7. 我的理解（这一段你面试可以说）"></a>7. 我的理解（这一段你面试可以说）</h2><p>我自己的一个总结是：</p>
+<ul>
+<li>传统推荐：拆成召回 &#x2F; 排序 &#x2F; 重排（工程驱动）</li>
+<li>生成式推荐：统一建模（模型驱动）</li>
+</ul>
+<p>本质变化在于：</p>
+<blockquote>
+<p>从“预测分数” → “生成结果”</p>
+</blockquote>
+<p>这不仅仅是方法升级，更是范式变化。</p>
+<hr>
+<h2 id="结尾"><a href="#结尾" class="headerlink" title="结尾"></a>结尾</h2><p>LLM 带来的最大价值，不只是模型更强，而是提供了一种新的建模方式：</p>
+<p> 把复杂问题统一成序列生成问题</p>
+<p>而推荐系统，正好是最适合被重构的领域之一。</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a target="_blank" rel="noopener" href="https://github.com/deicide77">deicide77</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://deicide77.github.io/2026/03/21/recommendation-LLM%E5%BB%BA%E6%A8%A1%E7%9A%84%E5%9F%BA%E6%9C%AC%E6%B5%81%E7%A8%8B/">https://deicide77.github.io/2026/03/21/recommendation-LLM%E5%BB%BA%E6%A8%A1%E7%9A%84%E5%9F%BA%E6%9C%AC%E6%B5%81%E7%A8%8B/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来源 <a href="https://deicide77.github.io" target="_blank">Deicide77's Blog</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/Transformer/">Transformer</a><a class="post-meta__tags" href="/tags/Attention/">Attention</a><a class="post-meta__tags" href="/tags/LLM/">LLM</a></div><div class="post-share"><div class="social-share" data-image="/img/kabi.jpg" data-sites="facebook,x,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related full-width" href="/2026/03/17/openclaw%E6%B7%B1%E5%BA%A6%E5%BC%80%E5%8F%91/" title="openclaw深度开发"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-right"><div class="info-1"><div class="info-item-1">下一篇</div><div class="info-item-2">openclaw深度开发</div></div><div class="info-2"><div class="info-item-1">clawX流程使用基础设置安装+对话由于事先已经通过cherry studio完成了openclaw的基础设置，为了更好的开发openclaw，我下载了clawX进行深度开发； 由于openrouter最近免费API使用过多，我自己采用的是kimi的API进行开发；  接入飞书设置机器人项目：  开通权限：  接入QQ 系统框架开发由于我有过cursor开发经验，所以在使用过程中，我开始尝试使用claw进行框架搭建，在使用过程中，claw的效果比想象中更好，在已知框架的过程中，它能够根据现有的框架进行调整，并且由于md的提示，和持续型开发，它的记忆更加精准，可以在保留原本的前端样式的情况下，进行新功能的添加；  其次关于代码的准确度上，它可以一定程度上解开代码的耦合；我在开发rag核心搜索时，把检索，重排，问答全部放在了同一个pipline中，他能够将函数输入输出重构，放在新的后端代码中； 但是经过测试，稍微更难一点的复杂耦合确实解决不了，但是由于claw的作用在于持续开发，所以我们可以采取以下开发措施：  采用Gemini进行需求分析，然后进行前端基础框架的搭建，保证样式准确度...</div></div></div></a></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><a class="pagination-related" href="/2026/03/17/recommendation/%E7%94%9F%E6%88%90%E5%BC%8F%E6%9E%B6%E6%9E%84%E7%9A%84%E5%9F%BA%E7%9F%B3/" title="生成式架构的基石"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-03-17</div><div class="info-item-2">生成式架构的基石</div></div><div class="info-2"><div class="info-item-1">一、写在开头：为什么要学习生成式架构？在当前人工智能的发展中，生成式模型（Generative Models）已经成为核心方向之一。从大语言模型（LLM）到图像生成模型（如 Stable Diffusion），其底层都依赖于一套关键的生成式架构。 作为一个在本科阶段具备深度学习基础的学习者，在阅读本章内容时，我并不满足于“理解概念”，而是希望做到：  能够从原理层理解 Transformer 架构 能够解释 Attention 的本质作用 能够理解 生成式模型为什么必须使用这些结构 对于 Diffusion 模型，建立从 0 到 1 的认知框架  Transformer架构笔者前言理解在阅读本节内容的过程中，结合我已有的深度学习基础，我对 Transformer 架构的优势有以下的认识。 首先，在计算层面，Transformer 将原本依赖时间递归的序列建模问题，转化为基于矩阵运算的并行计算问题。相比 RNN 必须按时间步逐步计算的方式（串行），Transformer 可以在整个序列维度上同时进行计算，从而充分利用 GPU 的并行计算能力。这种“去时序依赖”的计算模式，是其能够在...</div></div></div></a></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="/img/kabi.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">deicide77</div><div class="author-info-description">AI research notes</div><div class="site-data"><a href="/archives/"><div class="headline">文章</div><div class="length-num">8</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">13</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">6</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/deicide77"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%BB%8E-LLM-%E5%88%B0%E7%94%9F%E6%88%90%E5%BC%8F%E6%8E%A8%E8%8D%90%EF%BC%9A%E4%B8%80%E4%B8%AA%E7%BB%9F%E4%B8%80%E5%BB%BA%E6%A8%A1%E8%A7%86%E8%A7%92"><span class="toc-number">1.</span> <span class="toc-text">从 LLM 到生成式推荐：一个统一建模视角</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-%E9%A2%84%E8%AE%AD%E7%BB%83%EF%BC%9A%E8%AE%A9%E6%A8%A1%E5%9E%8B%E5%AD%A6%E4%BC%9A%E2%80%9C%E8%AF%AD%E8%A8%80%E2%80%9D"><span class="toc-number">1.1.</span> <span class="toc-text">1. 预训练：让模型学会“语言”</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-%E6%8C%87%E4%BB%A4%E5%BE%AE%E8%B0%83%EF%BC%9A%E8%AE%A9%E6%A8%A1%E5%9E%8B%E5%AD%A6%E4%BC%9A%E2%80%9C%E5%81%9A%E4%BB%BB%E5%8A%A1%E2%80%9D"><span class="toc-number">1.2.</span> <span class="toc-text">2. 指令微调：让模型学会“做任务”</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-%E5%81%8F%E5%A5%BD%E5%AF%B9%E9%BD%90%EF%BC%9A%E8%AE%A9%E6%A8%A1%E5%9E%8B%E6%9B%B4%E5%83%8F%E2%80%9C%E4%BA%BA%E2%80%9D"><span class="toc-number">1.3.</span> <span class="toc-text">3. 偏好对齐：让模型更像“人”</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-%E4%B8%80%E4%B8%AA%E5%85%B3%E9%94%AE%E8%BD%AC%E5%8F%98%EF%BC%9A%E4%BB%8E%E2%80%9C%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B%E2%80%9D%E5%88%B0%E2%80%9C%E5%86%B3%E7%AD%96%E6%A8%A1%E5%9E%8B%E2%80%9D"><span class="toc-number">1.4.</span> <span class="toc-text">4. 一个关键转变：从“语言模型”到“决策模型”</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-LLM-%E2%86%92-%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F%EF%BC%9A%E4%B8%8D%E6%98%AF%E5%A5%97%E7%94%A8%EF%BC%8C%E8%80%8C%E6%98%AF%E9%87%8D%E6%9E%84"><span class="toc-number">1.5.</span> <span class="toc-text">5. LLM → 推荐系统：不是套用，而是重构</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%EF%BC%881%EF%BC%89%E8%BE%93%E5%85%A5%E4%B8%8D%E5%86%8D%E6%98%AF%E7%BA%AF%E6%96%87%E6%9C%AC"><span class="toc-number">1.5.1.</span> <span class="toc-text">（1）输入不再是纯文本</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%EF%BC%882%EF%BC%89%E4%BF%A1%E5%8F%B7%E6%9D%A5%E6%BA%90%E5%8F%98%E4%BA%86"><span class="toc-number">1.5.2.</span> <span class="toc-text">（2）信号来源变了</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%EF%BC%883%EF%BC%89%E5%8F%8D%E9%A6%88%E6%9C%BA%E5%88%B6%E4%B8%8D%E5%90%8C"><span class="toc-number">1.5.3.</span> <span class="toc-text">（3）反馈机制不同</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%EF%BC%884%EF%BC%89%E5%B7%A5%E7%A8%8B%E7%BA%A6%E6%9D%9F%E6%9B%B4%E5%BC%BA"><span class="toc-number">1.5.4.</span> <span class="toc-text">（4）工程约束更强</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6-%E4%B8%80%E4%B8%AA%E7%BB%9F%E4%B8%80%E7%90%86%E8%A7%A3%EF%BC%88%E5%BE%88%E9%87%8D%E8%A6%81%EF%BC%89"><span class="toc-number">1.6.</span> <span class="toc-text">6. 一个统一理解（很重要）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#7-%E6%88%91%E7%9A%84%E7%90%86%E8%A7%A3%EF%BC%88%E8%BF%99%E4%B8%80%E6%AE%B5%E4%BD%A0%E9%9D%A2%E8%AF%95%E5%8F%AF%E4%BB%A5%E8%AF%B4%EF%BC%89"><span class="toc-number">1.7.</span> <span class="toc-text">7. 我的理解（这一段你面试可以说）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BB%93%E5%B0%BE"><span class="toc-number">1.8.</span> <span class="toc-text">结尾</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2026/03/21/recommendation-LLM%E5%BB%BA%E6%A8%A1%E7%9A%84%E5%9F%BA%E6%9C%AC%E6%B5%81%E7%A8%8B/" title="recommendation/LLM建模的基本流程">recommendation/LLM建模的基本流程</a><time datetime="2026-03-20T16:14:37.000Z" title="发表于 2026-03-21 00:14:37">2026-03-21</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2026/03/17/openclaw%E6%B7%B1%E5%BA%A6%E5%BC%80%E5%8F%91/" title="openclaw深度开发">openclaw深度开发</a><time datetime="2026-03-17T11:58:40.000Z" title="发表于 2026-03-17 19:58:40">2026-03-17</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2026/03/17/recommendation/%E7%94%9F%E6%88%90%E5%BC%8F%E6%9E%B6%E6%9E%84%E7%9A%84%E5%9F%BA%E7%9F%B3/" title="生成式架构的基石">生成式架构的基石</a><time datetime="2026-03-16T17:28:21.000Z" title="发表于 2026-03-17 01:28:21">2026-03-17</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2026/03/16/recommendation/%E6%8E%A8%E8%8D%90%E8%8C%83%E5%BC%8F%E7%9A%84%E6%BC%94%E8%BF%9B/" title="推荐范式的演进">推荐范式的演进</a><time datetime="2026-03-15T17:42:56.000Z" title="发表于 2026-03-16 01:42:56">2026-03-16</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2026/03/15/recommendation/%E7%94%9F%E6%88%90%E5%BC%8F%E6%8E%A8%E8%8D%90%E5%9F%BA%E7%A1%80%E5%AD%A6%E4%B9%A0/" title="生成式推荐基础学习">生成式推荐基础学习</a><time datetime="2026-03-15T15:23:48.000Z" title="发表于 2026-03-15 23:23:48">2026-03-15</time></div></div></div></div></div></div></main><footer id="footer"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;&nbsp;2025 - 2026 By deicide77</span><span class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo 8.1.1</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly 5.5.4</a></span></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=5.5.4"></script><script src="/js/main.js?v=5.5.4"></script><div class="js-pjax"></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
